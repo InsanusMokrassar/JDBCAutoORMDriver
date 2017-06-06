@@ -9,33 +9,6 @@ import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
-val nativeTypesMap = mapOf(
-        Pair(
-                Int::class,
-                "INTEGER"
-        ),
-        Pair(
-                Long::class,
-                "LONG"
-        ),
-        Pair(
-                Float::class,
-                "FLOAT"
-        ),
-        Pair(
-                Double::class,
-                "DOUBLE"
-        ),
-        Pair(
-                String::class,
-                "TEXT"
-        ),
-        Pair(
-                Boolean::class,
-                "BOOLEAN"
-        )
-)
-
 class JDBCTableProvider<M : Any, O : M> (
         modelClass: KClass<M>,
         operationsClass: KClass<in O>,

@@ -7,6 +7,33 @@ import java.sql.Connection
 import java.util.logging.Logger
 import kotlin.reflect.KClass
 
+val nativeTypesMap = mapOf(
+        Pair(
+                Int::class,
+                "INTEGER"
+        ),
+        Pair(
+                Long::class,
+                "LONG"
+        ),
+        Pair(
+                Float::class,
+                "FLOAT"
+        ),
+        Pair(
+                Double::class,
+                "DOUBLE"
+        ),
+        Pair(
+                String::class,
+                "TEXT"
+        ),
+        Pair(
+                Boolean::class,
+                "BOOLEAN"
+        )
+)
+
 class JDBCTableDriver(private val connection: Connection) : TableDriver {
     override fun <M : Any, O : M> getTableProvider(modelClass: KClass<M>, operationsClass: KClass<in O>): TableProvider<M, O> {
         createTableIfNotExist(modelClass)
