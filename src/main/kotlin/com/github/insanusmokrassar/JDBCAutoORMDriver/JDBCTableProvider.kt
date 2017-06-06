@@ -44,46 +44,7 @@ class JDBCTableProvider<M : Any, O : M> (
         modelClass,
         operationsClass) {
 
-    protected val primaryFields: List<KCallable<*>>
-
-    init {
-        val fieldsBuilder = StringBuilder()
-        primaryFields = modelClass.getPrimaryFields()
-
-        modelClass.getVariables().forEach {
-            if (it.isReturnNative()) {
-                fieldsBuilder.append("${it.name} ${nativeTypesMap[it.returnClass()]}")
-                if (!it.isNullable()) {
-                    fieldsBuilder.append(" NOT NULL")
-                }
-                if (primaryFields.contains(it) && it.isAutoincrement()) {
-                    fieldsBuilder.append(" AUTO_INCREMENT")
-                }
-            } else {
-                TODO()
-            }
-            fieldsBuilder.append(", ")
-        }
-        if (primaryFields.isNotEmpty()) {
-            fieldsBuilder.append("CONSTRAINT ${modelClass.simpleName}_PR_KEY PRIMARY KEY (")
-            primaryFields.forEach {
-                fieldsBuilder.append(it.name)
-                if (!primaryFields.isLast(it)) {
-                    fieldsBuilder.append(", ")
-                }
-            }
-            fieldsBuilder.append(")")
-        }
-
-        try {
-            if (connection.prepareStatement("CREATE TABLE IF NOT EXISTS ${modelClass.simpleName} ($fieldsBuilder);").execute()) {
-                Logger.getGlobal().info("Table ${modelClass.simpleName} was created")
-            }
-        } catch (e: Exception) {
-            Logger.getGlobal().throwing(this::class.simpleName, "init", e)
-            throw IllegalArgumentException("Can't create table ${modelClass.simpleName}", e)
-        }
-    }
+    protected val primaryFields: List<KCallable<*>> = modelClass.getPrimaryFields()
 
     override fun remove(where: SearchQuery): Boolean {
         val queryBuilder = StringBuilder().append("DELETE FROM ${modelClass.simpleName} ${JDBCSearchQueryCompiler.compileQuery(where)}${JDBCSearchQueryCompiler.compilePaging(where)};")
