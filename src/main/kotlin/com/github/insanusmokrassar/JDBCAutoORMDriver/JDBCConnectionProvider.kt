@@ -1,7 +1,7 @@
 package com.github.insanusmokrassar.JDBCAutoORMDriver
 
 import com.github.insanusmokrassar.AutoORM.core.*
-import com.github.insanusmokrassar.AutoORM.core.drivers.tables.interfaces.TableDriver
+import com.github.insanusmokrassar.AutoORM.core.drivers.tables.interfaces.ConnectionProvider
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.interfaces.TableProvider
 import java.sql.Connection
 import java.util.logging.Logger
@@ -34,13 +34,10 @@ val nativeTypesMap = mapOf(
         )
 )
 
-class JDBCTableDriver(private val connection: Connection) : TableDriver {
+class JDBCConnectionProvider(private val connection: Connection) : ConnectionProvider {
     override fun <M : Any, O : M> getTableProvider(modelClass: KClass<M>, operationsClass: KClass<in O>): TableProvider<M, O> {
         createTableIfNotExist(modelClass)
         return JDBCTableProvider(modelClass, operationsClass, connection)
-    }
-    override fun close() {
-        connection.close()
     }
 
     protected fun <M : Any, O : M> createTableIfNotExist(modelClass: KClass<M>) {
@@ -80,5 +77,9 @@ class JDBCTableDriver(private val connection: Connection) : TableDriver {
             Logger.getGlobal().throwing(this::class.simpleName, "init", e)
             throw IllegalArgumentException("Can't create table ${modelClass.simpleName}", e)
         }
+    }
+
+    override fun close() {
+        connection.close()
     }
 }
