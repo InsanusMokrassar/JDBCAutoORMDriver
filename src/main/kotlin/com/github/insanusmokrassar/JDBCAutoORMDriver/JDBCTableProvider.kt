@@ -1,6 +1,7 @@
 package com.github.insanusmokrassar.JDBCAutoORMDriver
 
 import com.github.insanusmokrassar.AutoORM.core.*
+import com.github.insanusmokrassar.AutoORM.core.compilers.OperationsCompiler
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.abstracts.AbstractTableProvider
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.SearchQuery
 import java.sql.Connection
@@ -12,8 +13,10 @@ import kotlin.reflect.KProperty
 class JDBCTableProvider<M : Any, O : M> (
         modelClass: KClass<M>,
         operationsClass: KClass<in O>,
+        operationsCompiler: OperationsCompiler,
         val connection: Connection)
     : AbstractTableProvider<M, O>(
+        operationsCompiler,
         modelClass,
         operationsClass) {
 
