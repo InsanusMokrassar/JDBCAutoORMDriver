@@ -44,7 +44,7 @@ class JDBCConnectionProvider(private val connection: Connection) : ConnectionPro
         return JDBCTableProvider(modelClass, operationsClass, operationsCompiler, connection)
     }
 
-    protected fun <M : Any, O : M> createTableIfNotExist(modelClass: KClass<M>) {
+    protected fun <M : Any> createTableIfNotExist(modelClass: KClass<M>) {
         val fieldsBuilder = StringBuilder()
         val primaryFields = modelClass.getPrimaryFields()
 
