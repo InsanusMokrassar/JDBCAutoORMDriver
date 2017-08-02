@@ -1,11 +1,10 @@
 package com.github.insanusmokrassar.JDBCAutoORMDriver
 
 import com.github.insanusmokrassar.AutoORM.core.*
-import com.github.insanusmokrassar.AutoORM.core.compilers.OperationsCompiler
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.abstracts.AbstractTableProvider
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.SearchQuery
+import com.github.insanusmokrassar.AutoORM.core.generators.RealisationsGenerator
 import java.sql.Connection
-import java.util.logging.Logger
 import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
@@ -13,10 +12,10 @@ import kotlin.reflect.KProperty
 class JDBCTableProvider<M : Any, O : M> (
         modelClass: KClass<M>,
         operationsClass: KClass<in O>,
-        operationsCompiler: OperationsCompiler,
+        generator: RealisationsGenerator,
         val connection: Connection)
     : AbstractTableProvider<M, O>(
-        operationsCompiler,
+        generator,
         modelClass,
         operationsClass) {
 

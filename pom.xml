@@ -7,7 +7,7 @@
 
     <groupId>com.github.insanusmokrassar</groupId>
     <artifactId>JDBCAutoORMDriver</artifactId>
-    <version>0.7</version>
+    <version>0.8</version>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
