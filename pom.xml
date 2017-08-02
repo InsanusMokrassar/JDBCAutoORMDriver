@@ -7,7 +7,7 @@
 
     <groupId>com.github.insanusmokrassar</groupId>
     <artifactId>JDBCAutoORMDriver</artifactId>
-    <version>1.0</version>
+    <version>0.7</version>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
@@ -184,7 +184,7 @@
         <dependency>
             <groupId>com.github.insanusmokrassar</groupId>
             <artifactId>AutoORM</artifactId>
-            <version>0.7</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
