@@ -1,9 +1,9 @@
 package com.github.insanusmokrassar.JDBCAutoORMDriver
 
 import com.github.insanusmokrassar.AutoORM.core.*
+import com.github.insanusmokrassar.AutoORM.core.compilers.OperationsCompiler
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.interfaces.ConnectionProvider
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.interfaces.TableProvider
-import com.github.insanusmokrassar.AutoORM.core.generators.RealisationsGenerator
 import java.sql.Connection
 import java.util.logging.Logger
 import kotlin.reflect.KClass
@@ -37,11 +37,11 @@ val nativeTypesMap = mapOf(
 
 class JDBCConnectionProvider(private val connection: Connection) : ConnectionProvider {
     override fun <M : Any, O : M> getTableProvider(
-            generator: RealisationsGenerator,
+            operationsCompiler: OperationsCompiler,
             modelClass: KClass<M>,
             operationsClass: KClass<in O>): TableProvider<M, O> {
         createTableIfNotExist(modelClass)
-        return JDBCTableProvider(modelClass, operationsClass, generator, connection)
+        return JDBCTableProvider(modelClass, operationsClass, operationsCompiler, connection)
     }
 
     protected fun <M : Any> createTableIfNotExist(modelClass: KClass<M>) {

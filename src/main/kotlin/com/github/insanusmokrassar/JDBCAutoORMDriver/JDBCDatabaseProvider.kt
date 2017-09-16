@@ -3,7 +3,7 @@ package com.github.insanusmokrassar.JDBCAutoORMDriver
 import com.github.insanusmokrassar.AutoORM.core.drivers.databases.abstracts.AbstractDatabaseProvider
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.interfaces.ConnectionProvider
 import com.github.insanusmokrassar.AutoORM.core.drivers.tables.interfaces.Transactable
-import com.github.insanusmokrassar.iobjectk.interfaces.IObject
+import com.github.insanusmokrassar.IObjectK.interfaces.IObject
 import java.sql.DriverManager
 import kotlin.reflect.KClass
 
